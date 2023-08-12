@@ -12,7 +12,7 @@ Installation
 ------------
 From within your project...
 ```shell
-# composer require vorgas/proper-naming
+# composer require vorgas/proper-naming:dev-main
 ```
 
 Basic Usage
@@ -98,6 +98,7 @@ To add your own class:
 To Do
 -----
 * Add additional casing classes, such as cities or businesses
+* Can somebody tell me how to get rid of that stupid :dev-main requirement in composer?
 
 Acknowledgement
 ---------------

@@ -3,9 +3,15 @@
     "description": "Tools for correcting capitalization on various proper names",
     "license": "MIT",
     "minimum-stability": "stable",
+    "type": "library",
     "autoload": {
         "psr-4": {
             "Vorgas\\ProperNaming\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Vorgas\\ProperNaming\\Tests": "tests/"
         }
     },
     "authors": [
