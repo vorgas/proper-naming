@@ -16,7 +16,7 @@ class PeopleCasing extends AbstractCasing
 {
     protected function splitters(): array
     {
-        return [' ', '-', "'", 'St.', 'Mc', 'De', 'Ms.'];
+        return [' ', '-', "'", 'St.', 'Mc', 'Mac', 'De', 'Ms.'];
     }
 
     protected function forces(): array

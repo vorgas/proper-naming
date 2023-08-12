@@ -158,9 +158,16 @@ abstract class AbstractCasing
         $string = strtolower($string);
         foreach ($this->splitters as $delimiter)
         {
+//            if (!str_contains($delimiter, $string))
+//                continue;
+
             $words = explode($delimiter, $string);
             $newwords = array_map([$this, 'casing'], $words);
-            $delimiter = $this->casing($delimiter);
+
+            if (str_contains($delimiter, $string)) {
+                $delimiter = $this->casing($delimiter);
+            }
+
             $string = join(
                 $this->casing($delimiter),
                 $newwords
