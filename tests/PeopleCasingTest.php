@@ -201,7 +201,7 @@ class PeopleCasingTest extends TestCase
         }
     }
 
-    public function testDelBrown()
+    public function testSplittersInForces()
     {
         $valid = 'Del Brown';
         $input = [
@@ -218,6 +218,12 @@ class PeopleCasingTest extends TestCase
                 "Failed to convert $value to $valid"
             );
         }
+
+        $this->casing->splitters[] = 'de';
+        $this->assertEquals(
+            'DeL Brown',
+            $this->casing->format('del BROWN')
+        );
     }
 
     public function testCustomCasingWord()
@@ -237,7 +243,6 @@ class PeopleCasingTest extends TestCase
             'Custom Snake_Case failed'
         );
     }
-
 
     public function testInvokableCall()
     {

@@ -88,7 +88,9 @@ $ProperName('VAN HOOK', false) # nan Hook
 Known Issues
 ------------
 * If a force contains a splitter, it can result in some bizarre capitalization. 
-    For example: $ProperName('del brown') outputs 'DeL Brown'
+    For example: 
+   - $ProperName->splitter[] = 'de'
+   - $ProperName('del brown') outputs 'DeL Brown'
 
 Development
 -----------
@@ -122,4 +124,4 @@ Acknowledgement
  * Armand Niculescu - https://www.media-division.com/author/armand/
 
 The logic behind the delimiter array was freaking genius. I also kept his 
-original case force exceptions.
+original case force exceptions, but added some extras.
