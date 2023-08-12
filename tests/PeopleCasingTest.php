@@ -130,20 +130,17 @@ class PeopleCasingTest extends TestCase
 
     public function testForcedLowerAsFirstName()
     {
-        $valid = 'Van Wildest';
-        $input = [
-            'lower' => 'van wildest',
-            'upper' => 'VAN WILDEST',
-            'mixed' => 'vAn wIldEST'
-        ];
+        $this->assertEquals(
+            'Van Wildest',
+            $this->casing->format('VAN WILDEST'),
+            'With $forced not being specified, it should be Van'
+        );
 
-        foreach ($input as $type => $value) {
-            $this->assertEquals(
-                $valid,
-                $this->casing->format($value),
-                "Failed to convert $value to $valid"
-            );
-        }
+        $this->assertEquals(
+            'van Wildest',
+            $this->casing->format('VAN WILDEST', false),
+            'With $forced being false, it shoud be van'
+        );
     }
 
     public function testForcedLowerFirstNameButProperCasing()
@@ -182,7 +179,7 @@ class PeopleCasingTest extends TestCase
         $this->casing->forces[] = 'wHinY';
         $this->assertEquals(
             'wHinY Case',
-            $this->casing->format('whiny case')
+            $this->casing->format('whiny case', false)
         );
     }
 
@@ -249,6 +246,10 @@ class PeopleCasingTest extends TestCase
         $this->assertEquals(
             'Mike Hill',
             $c('MIKE HILL')
+        );
+        $this->assertEquals(
+            'van Hook',
+            $c('VAN HOOK', false)
         );
     }
 }

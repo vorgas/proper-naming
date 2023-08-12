@@ -35,6 +35,35 @@ abstract class AbstractCasing
      */
     public array $assumptions = [];
 
+    /**
+     * Converts the string into Proper Names, based on capitalization rules
+     *
+     * Tries to do a decent job of Proper Name capitalization. Can handle
+     * substrings that are forced to be upper-cased or lower-cased, with
+     * special delimiters.
+     *
+     * Use $ucfirst to control whether to capitalize the first letter of the
+     * string, if the first word is lower-cased in forces[].
+     *
+     * @example given that 'van' is in $forces
+     *  - format('VAN WILDER') -> 'Van Wilder'
+     *  - format('VAN WILDER', false) -> 'van Wilder'
+     *
+     * @param string $string    The string to be formatted
+     * @param bool $ucfirst     Force the first letter to be capital
+     * @return string
+     */
+    public function format($string, $ucfirst = true): string
+    {
+        $string = trim($string);
+        $properFormat = $this->properFormat($string);
+        if ($this->assumeCorrectInput($string, $properFormat))
+            return $string;
+
+        if ($ucfirst) return ucfirst($properFormat);
+        return $properFormat;
+    }
+
     public function __construct()
     {
         $this->splitters = $this->splitters();
@@ -42,9 +71,9 @@ abstract class AbstractCasing
         $this->assumptions = $this->assumptions();
     }
 
-    public function __invoke($string): string
+    public function __invoke($string, $ucfirst = true): string
     {
-        return $this->format($string);
+        return $this->format($string, $ucfirst);
     }
 
     /**
@@ -64,26 +93,6 @@ abstract class AbstractCasing
      * @return array
      */
     abstract protected function assumptions(): array;
-
-    /**
-     * Converts the string into Proper Names, based on capitalization rules
-     *
-     * Tries to do a decent job of Proper Name capitalization. Can handle
-     * substrings that are forced to be upper-cased or lower-cased, with
-     * special delimiters.
-     *
-     * @param string $string    The string to be formatted
-     * @return string
-     */
-    public function format($string): string
-    {
-        $string = trim($string);
-        $properFormat = $this->properFormat($string);
-        if ($this->assumeCorrectInput($string, $properFormat))
-            return $string;
-
-        return ucfirst($properFormat);
-    }
 
     /**
      * Tries to detect edge cases with properly formatted input

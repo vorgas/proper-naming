@@ -27,6 +27,7 @@ echo $ProperName('MIKE HILL');
 echo $ProperName('mike hill');
 echo $ProperName('mIKE hILl');
 ```
+
 Also handles words that should all lower case
 ```php
 echo $ProperName('MARIO VAN PEEBLES'); # Mario van Peebles
@@ -65,7 +66,7 @@ echo $ProperName('snake_case'); # Snake_Case
 $forces[] example
 ```php
 $ProperName->forces[] = 'CustomCasingWord';
-echo $ProperName('customcasingrule'); # SomeCustomCasingRule
+echo $ProperName('customcasingword'); # CustomCasingWord
 ```
 
 $assumptions[] example
@@ -73,6 +74,21 @@ $assumptions[] example
 $ProperName->assumptions[] = 'Dee';
 echo $ProperName('Madison DeeLIGHT'); Madison DeeLIGHT
 ```
+
+Controlling First Name Capitalization
+-----------------------
+If the first name is in $forces[], and is lower-case, the default action is to
+capitalize it anyway. Because some Americans are named 'Van'. However, you can
+turn off this behavior, by setting the second parameter to false.
+```php
+$ProperName('VAN HOOK'); # Van Hook
+$ProperName('VAN HOOK', false) # nan Hook
+```
+
+Known Issues
+------------
+* If a force contains a splitter, it can result in some bizarre capitalization. 
+    For example: $ProperName('del brown') outputs 'DeL Brown'
 
 Development
 -----------
@@ -98,7 +114,6 @@ To add your own class:
 To Do
 -----
 * Add additional casing classes, such as cities or businesses
-* Can somebody tell me how to get rid of that stupid :dev-main requirement in composer?
 
 Acknowledgement
 ---------------
