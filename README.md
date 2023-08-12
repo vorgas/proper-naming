@@ -95,7 +95,10 @@ To add your own class:
        return [];
    }   
    ```
-   
+To Do
+-----
+* Add additional casing classes, such as cities or businesses
+
 Acknowledgement
 ---------------
  * Derived from the script at
