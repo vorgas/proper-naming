@@ -1,6 +1,7 @@
 {
     "name": "vorgas/proper-naming",
     "description": "Tools for correcting capitalization on various proper names",
+    "license": "MIT",
     "require-dev": {
         "phpunit/phpunit": "^10.3"
     },
