@@ -146,6 +146,14 @@ class PeopleCasingTest extends TestCase
         }
     }
 
+    public function testForcedLowerFirstNameButProperCasing()
+    {
+        $this->assertEquals(
+            'van Wildest',
+            $this->casing->format('van Wildest')
+        );
+    }
+
     public function testSaints()
     {
         $valid = 'Mike St. Hill';
@@ -200,9 +208,9 @@ class PeopleCasingTest extends TestCase
     {
         $valid = 'Del Brown';
         $input = [
-//            'lower' => 'del brown',
-//            'upper' => 'DEL BROWN',
-//            'mixed1' => 'DeL Brown',
+            'lower' => 'del brown',
+            'upper' => 'DEL BROWN',
+            'mixed1' => 'DeL Brown',
             'mixed2' => 'DeL BROWN'
         ];
 
@@ -225,11 +233,11 @@ class PeopleCasingTest extends TestCase
 
     public function testCustomWordSplitting()
     {
-        $this->casing->splitters[] = "_";
+        $this->casing->splitters[] = '_';
         $this->assertEquals(
             'Snake_Case',
             $this->casing->format('snake_CASE'),
-            'Custome Snake_Case failed'
+            'Custom Snake_Case failed'
         );
     }
 

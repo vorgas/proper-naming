@@ -82,16 +82,29 @@ abstract class AbstractCasing
         if ($this->assumeCorrectInput($string, $properFormat))
             return $string;
 
-        return $properFormat;
+        return ucfirst($properFormat);
     }
 
+    /**
+     * Tries to detect edge cases with properly formatted input
+     *
+     * This deals with something like MacDonald and Macloud. If the entries are
+     * 'John MacDonald' and 'Ian Macloud', it's quite probable this input is
+     * intentional and correct.
+     *
+     * @param string $original
+     * @param string $proper
+     * @return bool
+     */
     private function assumeCorrectInput($original, $proper)
     {
-        // Split each string into an array, based on spaces
-        // Remove entries from $original that match the corresponding entry in $proper
-        // For the remaining entries in $diff
-        // - If even one doesn't start with an assumption match, use $proper
-        // - If all of them start with an assumption match, use $original
+        ## General logic
+        /* Split each string into an array, based on spaces
+           Remove entries from $original that are matched in $proper
+           For the remaining entries in $diff
+             - If even one doesn't start with an assumption match, use $proper
+             - If all of them start with an assumption match, use $original */
+
         $diff = array_diff(
             explode(' ', $original),
             explode(' ', $proper)
@@ -158,16 +171,11 @@ abstract class AbstractCasing
         $string = strtolower($string);
         foreach ($this->splitters as $delimiter)
         {
-//            if (!str_contains($delimiter, $string))
-//                continue;
+            if ($delimiter != ' ' && !str_contains($string, $delimiter))
+                continue;
 
             $words = explode($delimiter, $string);
             $newwords = array_map([$this, 'casing'], $words);
-
-            if (str_contains($delimiter, $string)) {
-                $delimiter = $this->casing($delimiter);
-            }
-
             $string = join(
                 $this->casing($delimiter),
                 $newwords
