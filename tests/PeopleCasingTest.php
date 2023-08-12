@@ -164,6 +164,20 @@ class PeopleCasingTest extends TestCase
         }
     }
 
+    public function testMixedCapSingleName()
+    {
+        $this->assertEquals(
+            'McDonald',
+            $this->casing->format('MCDONALD')
+        );
+
+        $this->casing->forces[] = 'wHinY';
+        $this->assertEquals(
+            'wHinY Case',
+            $this->casing->format('whiny case')
+        );
+    }
+
     public function testProperlyFormattedInputIsKept()
     {
         $input = [
@@ -182,6 +196,33 @@ class PeopleCasingTest extends TestCase
         }
     }
 
+    public function testDelBrown()
+    {
+        $valid = 'Del Brown';
+        $input = [
+//            'lower' => 'del brown',
+//            'upper' => 'DEL BROWN',
+//            'mixed1' => 'DeL Brown',
+            'mixed2' => 'DeL BROWN'
+        ];
+
+        foreach ($input as $type => $value) {
+            $this->assertEquals(
+                $valid,
+                $this->casing->format($value),
+                "Failed to convert $value to $valid"
+            );
+        }
+    }
+
+    public function testCustomCasingWord()
+    {
+        $this->assertEquals(
+            'CustomCasingWord',
+            $this->casing->format('customcasingword')
+        );
+    }
+
     public function testCustomWordSplitting()
     {
         $this->casing->splitters[] = "_";
@@ -191,7 +232,6 @@ class PeopleCasingTest extends TestCase
             'Custome Snake_Case failed'
         );
     }
-
 
 
     public function testInvokableCall()

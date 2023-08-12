@@ -23,7 +23,7 @@ class PeopleCasing extends AbstractCasing
     {
         $lc = ['the', 'van', 'den', 'von', 'und', 'der', 'de', 'da', 'of', 'and', 'del'];
         $uc = ['II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX', 'X'];
-        $spec = ['SomeCustomCasingRule'];
+        $spec = ['CustomCasingWord'];
 
         return array_merge($lc, $uc, $spec);
     }

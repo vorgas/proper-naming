@@ -33,7 +33,7 @@ echo $ProperName('MARIO VAN PEEBLES'); # Mario van Peebles
 echo $ProperName('lacy del gallo'); # Lacy del Gallo
 ```
 
-And it can force certain words to be upper cased
+And it can force certain words to be upper-cased
 ```php
 echo $ProperName('edwardo genius iii'); # Edwardo Genius III
 ```
@@ -64,8 +64,8 @@ echo $ProperName('snake_case'); # Snake_Case
 
 $forces[] example
 ```php
-$ProperName->forces[] = 'wHinY';
-echo $ProperName('whiny case'); # wHinY Case
+$ProperName->forces[] = 'CustomCasingWord';
+echo $ProperName('customcasingrule'); # SomeCustomCasingRule
 ```
 
 $assumptions[] example
