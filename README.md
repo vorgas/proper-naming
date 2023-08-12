@@ -12,7 +12,7 @@ Installation
 ------------
 From within your project...
 ```shell
-# composer require vorgas/ProperNaming
+# composer require vorgas/proper-naming
 ```
 
 Basic Usage
