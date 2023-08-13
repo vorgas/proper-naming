@@ -3,7 +3,7 @@ An advanced and extensible proper name casing strategy
 
 Turns MIKE HILL into Mike Hill, and ANGUS MACGUYVER into Angus MacGuyver. And if
 somebody types in John MacDonald and Ian Macloud, it figures they know what they
-are doing, and leaves the capitalization the woy it was submitted.
+are doing, and leaves the capitalization the way it was submitted.
 
 With proper usage, it will not only turn angel d'arcy into Angel D'Arcy but
 knows to leave well enough alone and make HELL'S BELLS into Hell's Bells.

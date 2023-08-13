@@ -11,11 +11,3 @@ $ProperName('del brown'); # DeL Brown
 ```
 This shouldn't occur by default, but if you add splitters manually, you may
 run into this.
-
-Multi-Word Forces
-----------------------
-There isn't yet an effective way to deal with multi-word forces. The behavior
-will be mixed. If you need it, copy the BusinessCasing class, and put your
-overrides in the Casing::custom[] property.
-
-
