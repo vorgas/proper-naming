@@ -38,18 +38,18 @@ $ProperName('john smith iii'); # John Smith III
 
 Casing Strategies
 -----------------
-[Proper Name](./doc/ProperName.md) - Basic Proper Name capitalization
-[People Casing](./doc/PeopleCasing.md) - Some enhanced family name distinctions
-[Business Casing](./doc/BusinessCasing.md) - Business name overrides and oddities
-[City Casing](./doc/CityCasing.md) - Handles various city naming conventions
-[US State Casing](./doc/USStateCasing.md) - Caps the 2-letter codes for states & territories
-[Custom Casing](./doc/CustomCasing.md) - Roll your own custom rules and overrides
+ * [Proper Name](./doc/ProperName.md) - Basic Proper Name capitalization
+ * [People Casing](./doc/PeopleCasing.md) - Some enhanced family name distinctions
+ * [Business Casing](./doc/BusinessCasing.md) - Business name overrides and oddities
+ * [City Casing](./doc/CityCasing.md) - Handles various city naming conventions
+ * [US State Casing](./doc/USStateCasing.md) - Caps the 2-letter codes for states & territories
+ * [Custom Casing](./doc/CustomCasing.md) - Roll your own custom rules and overrides
 
 Other Topics
 ------------
-[Advanced Usage](./doc/Usage.md)
-[Known Issues](./doc/KnownIssues.md)
-[Development](./doc/Development.md)
+ * [Advanced Usage](./doc/Usage.md)
+ * [Known Issues](./doc/KnownIssues.md)
+ * [Development](./doc/Development.md)
 
 Acknowledgement
 ---------------
