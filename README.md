@@ -1,8 +1,16 @@
 # Proper Naming
-An advanced and extensible proper naming strategy.
+An advanced and extensible proper name casing strategy
 
-Features
---------
+Turns MIKE HILL into Mike Hill, and ANGUS MACGUYVER into Angus MacGuyver. And if
+somebody types in John MacDonald and Ian Macloud, it figures they know what they
+are doing, and leaves the capitalization the woy it was submitted.
+
+With proper usage, it will not only turn angel d'arcy into Angel D'Arcy but
+knows to leave well enough alone and make HELL'S BELLS into Hell's Bells.
+
+Features At A Glance
+--------------------
+- Different strategies for people and places
 - Adjustable in real time through public properties
 - Force words to all upper or all lower case
 - Detect properly formatted overrides on edge cases
@@ -17,105 +25,31 @@ From within your project...
 
 Basic Usage
 -----------
-Just call the appropriate class with the string to format.
+Just call the appropriate class with the string to case.
 ```php
 use ProperNaming\PeopleCasing;
 $ProperName = new PeopleCasing();
-# All of these will echo 'Mike Hill'
-echo $ProperName->format('MIKE HILL');
-echo $ProperName('MIKE HILL');
-echo $ProperName('mike hill');
-echo $ProperName('mIKE hILl');
+$ProperName('MIKE HILL'); # Mike Hill
+$ProperName('rip van winkle'); # Rip van Winkle
+$ProperName('van trapp'); # Van Trapp <-- A person's actual name
+$ProperName('van trapp', false); # van Trapp <-- The family name
+$ProperName('john smith iii'); # John Smith III
 ```
 
-Also handles words that should all lower case
-```php
-echo $ProperName('MARIO VAN PEEBLES'); # Mario van Peebles
-echo $ProperName('lacy del gallo'); # Lacy del Gallo
-```
+Casing Strategies
+-----------------
+[Proper Name](./doc/ProperName.md) - Basic Proper Name capitalization
+[People Casing](./doc/PeopleCasing.md) - Some enhanced family name distinctions
+[Business Casing](./doc/BusinessCasing.md) - Business name overrides and oddities
+[City Casing](./doc/CityCasing.md) - Handles various city naming conventions
+[US State Casing](./doc/USStateCasing.md) - Caps the 2-letter codes for states & territories
+[Custom Casing](./doc/CustomCasing.md) - Roll your own custom rules and overrides
 
-And it can force certain words to be upper-cased
-```php
-echo $ProperName('edwardo genius iii'); # Edwardo Genius III
-```
-
-It can detect special prefixes
-```php
-echo $ProperName('don juan demarco'); # Don Juan DeMarco
-echo $ProperName('MCDONALD'); # McDonald
-```
-
-And assume that a properly formatted name is probably intentional
-```php
-echo $ProperName('Mike MacDonald'): # Mike MacDonald
-echo $ProperName('Mike Macdonald'); # Mike Macdonald
-```
-Advanced Usage
---------------
-The class exposes 3 arrays as public properties that you can adjust.
- 1: $splitters[] - Treats anything around this as a word
- 2: $forces[] - Force these entries to be cased as listed
- 3: $assumptions[] - Use these to assume properly cased submissions
-
-$splitters[] example
-```php
-$ProperName->splitters[] = "_";
-echo $ProperName('snake_case'); # Snake_Case
-```
-
-$forces[] example
-```php
-$ProperName->forces[] = 'CustomCasingWord';
-echo $ProperName('customcasingword'); # CustomCasingWord
-```
-
-$assumptions[] example
-```php
-$ProperName->assumptions[] = 'Dee';
-echo $ProperName('Madison DeeLIGHT'); Madison DeeLIGHT
-```
-
-Controlling First Name Capitalization
------------------------
-If the first name is in $forces[], and is lower-case, the default action is to
-capitalize it anyway. Because some Americans are named 'Van'. However, you can
-turn off this behavior, by setting the second parameter to false.
-```php
-$ProperName('VAN HOOK'); # Van Hook
-$ProperName('VAN HOOK', false) # nan Hook
-```
-
-Known Issues
+Other Topics
 ------------
-* If a force contains a splitter, it can result in some bizarre capitalization. 
-    For example: 
-   - $ProperName->splitter[] = 'de'
-   - $ProperName('del brown') outputs 'DeL Brown'
-
-Development
------------
-To add your own class:
- - Extend ProperNaming\AbstractCasing
- - Add the following 3 methods, returning the appropriate array
-   ```php
-   abstract protected function splitters(): array 
-   { 
-       return [];
-   }
-   
-   abstract protected function forces(): array
-   {
-       return [];
-   }
-   
-   abstract protected function assumptions(): array
-   {
-       return [];
-   }   
-   ```
-To Do
------
-* Add additional casing classes, such as cities or businesses
+[Advanced Usage](./doc/Usage.md)
+[Known Issues](./doc/KnownIssues.md)
+[Development](./doc/Development.md)
 
 Acknowledgement
 ---------------
@@ -125,3 +59,8 @@ Acknowledgement
 
 The logic behind the delimiter array was freaking genius. I also kept his 
 original case force exceptions, but added some extras.
+
+
+License
+-------
+Licensed under the MIT License - see the [License](./doc/License.md) for details

@@ -1,35 +1,61 @@
 <?php
-/**
- * Derived from the script at
- * https://www.media-division.com/correct-name-capitalization-in-php/
- * Armand Niculescu - https://www.media-division.com/author/armand/
- *
- * - Packed into a class, with class advantages
- * - Organizational changes, made the code cleaner
- * - Add the ability to force delimiters to all upper case, etc
- */
-
 
 namespace Vorgas\ProperNaming;
 
-class PeopleCasing extends AbstractCasing
+/**
+ * Proper Name casing with some special handlers for common family names
+ *
+ * In addition to the normal word splitters of " ", "." and "-", there is also
+ * some splitters for unusual family names, such as "D'Arcy" or "McDonald".
+ *
+ * Also includes some edge cases clean inputs, such as "d'Arcy" AND "D'Arcy"
+ */
+class PeopleCasing extends ProperName
 {
-    protected function splitters(): array
+    /**
+     * @inheritDoc
+     */
+    protected function initAssumptions(): array
     {
-        return [' ', '-', "'", 'St.', 'Mc', 'Mac', 'De', 'Ms.'];
+        return array_merge(
+            ['Mac', 'Mc', 'Le', 'La', "D'", "L'", "d'", "l'"],
+            parent::initAssumptions()
+        );
     }
 
-    protected function forces(): array
+    /**
+     * @inheritDoc
+     */
+    protected function initCustoms(): array
     {
-        $lc = ['the', 'van', 'den', 'von', 'und', 'der', 'de', 'da', 'of', 'and', 'del'];
-        $uc = ['II', 'III', 'IV', 'VI', 'VII', 'VIII', 'IX', 'X'];
-        $spec = ['CustomCasingWord'];
-
-        return array_merge($lc, $uc, $spec);
+        // Reduntant for now, but allows easy extension
+        return parent::initCustoms();
     }
 
-    protected function assumptions(): array
+    /**
+     * @inheritDoc
+     */
+    protected function initForces(): array
     {
-        return ['Mac', 'Mc', 'Le', 'La', "D'", "L'", "d'", "l'"];
+        // Reduntant for now, but allows easy extension
+        return parent::initForces();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function initSplitters(): array
+    {
+        // Be careful when using array_merge with the splitters!!!
+        /* The order is important, as delimiters are not case-insesitive
+            when splitting. For example:
+            - $splitters = [" ", "De"];
+            - format("anna demarco"); # Anna DeMarco
+
+            - $splitters = ["De", " "];
+            - format("anna demarco"); # Anna Demarco
+
+            It's better to just override it and be safe! */
+        return [" ", ".", "'", "-", 'St.', 'Mc', 'Mac', 'De', 'Ms.'];
     }
 }

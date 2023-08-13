@@ -20,59 +20,6 @@ class PeopleCasingTest extends TestCase
         $this->casing = NULL;
     }
 
-    public function testSimpleNameCasing()
-    {
-        $valid = 'Mike Hill';
-        $input = [
-            'lower' => 'mike hill',
-            'upper' => 'MIKE HILL',
-            'mixed' => 'mIke Hill'
-        ];
-
-        foreach ($input as $type => $value) {
-            $this->assertEquals(
-                $valid,
-                $this->casing->format($value),
-                "Failed to convert $value to $valid"
-            );
-        }
-    }
-
-    public function testLowerExceptions()
-    {
-        $valid = 'Mike van Hill';
-        $input = [
-            'lower' => 'mike van hill',
-            'upper' => 'MIKE VAN HILL',
-            'mixed' => 'mIke Van Hill'
-        ];
-
-        foreach ($input as $type => $value) {
-            $this->assertEquals(
-                $valid,
-                $this->casing->format($value),
-                "Failed to convert $value to $valid"
-            );
-        }
-    }
-
-    public function testAlwaysUpper()
-    {
-        $valid = 'Mike Hill III';
-        $input = [
-            'lower' => 'mike hill iii',
-            'upper' => 'MIKE HILL III',
-            'mixed' => 'mIke Hill iIi'
-        ];
-
-        foreach ($input as $type => $value) {
-            $this->assertEquals(
-                $valid,
-                $this->casing->format($value),
-                "Failed to convert $value to $valid"
-            );
-        }
-    }
 
     public function testApostropheNames()
     {
@@ -86,7 +33,7 @@ class PeopleCasingTest extends TestCase
         foreach ($input as $type => $value) {
             $this->assertEquals(
                 $valid,
-                $this->casing->format($value),
+                $this->casing->case($value),
                 "Failed to convert $value to $valid"
             );
         }
@@ -104,50 +51,19 @@ class PeopleCasingTest extends TestCase
         foreach ($input as $type => $value) {
             $this->assertEquals(
                 $valid,
-                $this->casing->format($value),
+                $this->casing->case($value),
                 "Failed to convert $value to $valid"
             );
         }
     }
 
-    public function testSingleName()
-    {
-        $valid = 'Mike';
-        $input = [
-            'lower' => 'mike',
-            'upper' => 'MIKE',
-            'mixed' => 'mIke'
-        ];
 
-        foreach ($input as $type => $value) {
-            $this->assertEquals(
-                $valid,
-                $this->casing->format($value),
-                "Failed to convert $value to $valid"
-            );
-        }
-    }
-
-    public function testForcedLowerAsFirstName()
-    {
-        $this->assertEquals(
-            'Van Wildest',
-            $this->casing->format('VAN WILDEST'),
-            'With $forced not being specified, it should be Van'
-        );
-
-        $this->assertEquals(
-            'van Wildest',
-            $this->casing->format('VAN WILDEST', false),
-            'With $forced being false, it shoud be van'
-        );
-    }
 
     public function testForcedLowerFirstNameButProperCasing()
     {
         $this->assertEquals(
             'van Wildest',
-            $this->casing->format('van Wildest')
+            $this->casing->case('van Wildest')
         );
     }
 
@@ -163,7 +79,7 @@ class PeopleCasingTest extends TestCase
         foreach ($input as $type => $value) {
             $this->assertEquals(
                 $valid,
-                $this->casing->format($value),
+                $this->casing->case($value),
                 "Failed to convert $value to $valid"
             );
         }
@@ -173,13 +89,13 @@ class PeopleCasingTest extends TestCase
     {
         $this->assertEquals(
             'McDonald',
-            $this->casing->format('MCDONALD')
+            $this->casing->case('MCDONALD')
         );
 
         $this->casing->forces[] = 'wHinY';
         $this->assertEquals(
             'wHinY Case',
-            $this->casing->format('whiny case', false)
+            $this->casing->case('whiny case', false)
         );
     }
 
@@ -195,7 +111,7 @@ class PeopleCasingTest extends TestCase
         foreach ($input as $name) {
             $this->assertEquals(
                 $name,
-                $this->casing->format($name),
+                $this->casing->case($name),
                 "$name was not retained"
             );
         }
@@ -214,7 +130,7 @@ class PeopleCasingTest extends TestCase
         foreach ($input as $type => $value) {
             $this->assertEquals(
                 $valid,
-                $this->casing->format($value),
+                $this->casing->case($value),
                 "Failed to convert $value to $valid"
             );
         }
@@ -222,39 +138,7 @@ class PeopleCasingTest extends TestCase
         $this->casing->splitters[] = 'de';
         $this->assertEquals(
             'DeL Brown',
-            $this->casing->format('del BROWN')
-        );
-    }
-
-    public function testCustomCasingWord()
-    {
-        $this->assertEquals(
-            'CustomCasingWord',
-            $this->casing->format('customcasingword')
-        );
-    }
-
-    public function testCustomWordSplitting()
-    {
-        $this->casing->splitters[] = '_';
-        $this->assertEquals(
-            'Snake_Case',
-            $this->casing->format('snake_CASE'),
-            'Custom Snake_Case failed'
-        );
-    }
-
-    public function testInvokableCall()
-    {
-        $c = new PeopleCasing();
-        $this->assertIsCallable($c);
-        $this->assertEquals(
-            'Mike Hill',
-            $c('MIKE HILL')
-        );
-        $this->assertEquals(
-            'van Hook',
-            $c('VAN HOOK', false)
+            $this->casing->case('del BROWN')
         );
     }
 }
